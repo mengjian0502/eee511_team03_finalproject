@@ -348,13 +348,8 @@ def main():
 
 
         # train for one epoch
-        if args.clp:
-            train_acc, train_los, train_alpha = train(
-                train_loader, net, criterion, optimizer, epoch, log)
-            print_log(f"Epoch: {epoch}, Alpha: {train_alpha}", log)
-        else:
-            train_acc, train_los = train(
-                train_loader, net, criterion, optimizer, epoch, log)
+        train_acc, train_los = train(
+            train_loader, net, criterion, optimizer, epoch, log)
 
   
         # evaluate on validation set
@@ -446,6 +441,8 @@ def train(train_loader, model, criterion, optimizer, epoch, log):
             # the copy will be asynchronous with respect to the host.
             target = target.cuda(non_blocking=True)
             input = input.cuda()
+        
+        print(input.size())
 
         # compute output
         output = model(input)
@@ -479,12 +476,8 @@ def train(train_loader, model, criterion, optimizer, epoch, log):
         '  **Train** Prec@1 {top1.avg:.3f} Prec@5 {top5.avg:.3f} Error@1 {error1:.3f}'.format(top1=top1, top5=top5,
                                                                                               error1=100 - top1.avg),log)
 
-    if args.w_clp:
-        print(f"beta: {beta}")
-    if args.clp:
-        return top1.avg, losses.avg, alpha
-    else:
-        return top1.avg, losses.avg
+
+    return top1.avg, losses.avg
 
 
 def validate(val_loader, model, criterion, log):

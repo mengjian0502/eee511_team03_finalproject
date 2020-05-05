@@ -39,10 +39,10 @@ class Fire(nn.Module):
 
 
 class SqueezeNet(nn.Module):
-
     def __init__(self, version='1_0', num_classes=10):
         super(SqueezeNet, self).__init__()
         self.num_classes = num_classes
+        print(version)
         if version == '1_0':
             self.features = nn.Sequential(
                 nn.Conv2d(3, 96, kernel_size=7, stride=2),
@@ -103,10 +103,10 @@ class SqueezeNet(nn.Module):
         return torch.flatten(x, 1)
 
 
-def squeezenet1_0(version='1_0'):
-    model = SqueezeNet(version)
+def squeezenet1_0(version='1_0', num_classes=10):
+    model = SqueezeNet(version='1_0', num_classes=num_classes)
     return model
 
-def squeezenet1_1(version='1_1'):
-    model = SqueezeNet(version)
+def squeezenet1_1(version='1_1', num_classes=10):
+    model = SqueezeNet(version='1_1', num_classes=num_classes)
     return model

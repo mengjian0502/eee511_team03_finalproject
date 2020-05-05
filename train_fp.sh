@@ -12,7 +12,7 @@ if [ ! -d "$DIRECTORY" ]; then
 fi
 
 ############ Configurations ###############
-model=squeezenet1_0
+model=squeezenet1_1
 dataset=cifar10
 epochs=300
 batch_size=64
@@ -24,8 +24,8 @@ label_info=
 $PYTHON -W ignore main.py --dataset ${dataset} \
     --data_path ./dataset/   \
     --arch ${model} --save_path ./save/SqueezeNet/decay0.0002_w32_a4_pact_quan \
-    --epochs ${epochs}  --learning_rate  0.1 \
+    --epochs ${epochs}  --learning_rate  0.01 \
     --optimizer ${optimizer} \
     --schedule 120 240   --gammas 0.1 0.1\
     --batch_size ${batch_size} --workers 4 --ngpu 1 --gpu_id 2 \
-    --print_freq 100 --decay 0.0002
+    --print_freq 100 --decay 0.0001
