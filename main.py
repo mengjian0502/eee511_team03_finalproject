@@ -42,7 +42,7 @@ parser = argparse.ArgumentParser(description='Training network for image classif
 
 parser.add_argument('--data_path', default='/home/elliot/data/pytorch/svhn/',
                     type=str, help='Path to dataset')
-parser.add_argument('--dataset', type=str, choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist', 'yawnDD'],
+parser.add_argument('--dataset', type=str, choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist', 'yawnDD', 'eyeclosure'],
                     help='Choose between Cifar10/100 and ImageNet.')
 parser.add_argument('--arch', metavar='ARCH', default='lbcnn', choices=model_names,
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnext29_8_64)')
@@ -163,6 +163,8 @@ def main():
         std = [0.229, 0.224, 0.225]
     elif args.dataset == 'yawnDD':
         print(f'YawnDD dataset!')
+    elif args.dataset == 'eyeclosure':
+        print(f'eyeclosure dataset!')
     else:
         assert False, "Unknow dataset : {}".format(args.dataset)
 
@@ -179,7 +181,7 @@ def main():
             transforms.ToTensor(),
             transforms.Normalize(mean, std)
         ])  # here is actually the validation dataset
-    elif args.dataset != 'yawnDD':
+    elif not args.dataset in ['yawnDD', 'eyeclosure']:
         train_transform = transforms.Compose([
             transforms.RandomHorizontalFlip(),
             transforms.RandomCrop(32, padding=4),
@@ -242,6 +244,21 @@ def main():
 
         train_data = torch.utils.data.TensorDataset(train_dataset, train_target)
         test_data = torch.utils.data.TensorDataset(test_dataset, test_target)
+
+        num_classes = 2
+
+    elif args.dataset == 'eyeclosure':
+        train_dataset = torch.load('./eyeclosure/eyeclosure_train_data.pt')
+        train_label = torch.load('./eyeclosure/eyeclosure_train_label.pt').long()
+
+        test_dataset = torch.load('./eyeclosure/eyeclosure_test_data.pt')
+        test_label = torch.load('./eyeclosure/eyeclosure_test_label.pt').long()
+
+        train_dataset = train_dataset.view(train_dataset.size(0), train_dataset.size(3), train_dataset.size(2), train_dataset.size(2))
+        test_dataset = test_dataset.view(test_dataset.size(0), test_dataset.size(3), test_dataset.size(2), test_dataset.size(2))
+
+        train_data = torch.utils.data.TensorDataset(train_dataset, train_label)
+        test_data = torch.utils.data.TensorDataset(test_dataset, test_label)
 
         num_classes = 2
     else:
@@ -396,9 +413,6 @@ def main():
         recorder.plot_curve(os.path.join(args.save_path, 'curve.png'))
 
     log.close()
-
-    filename = os.path.join(args.save_path, 'w_zero_idx')
-    np.save(filename, w_zero_idx)
 
 def glasso(var, dim=0):
     return var.pow(2).sum(dim=dim).pow(1/2).sum()
