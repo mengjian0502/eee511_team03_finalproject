@@ -43,7 +43,7 @@ python preprocess.py
 
 The openess of the mouth has been measured based on the Euclidian distance between the top lip and the bottom lip. Before measuring the lip distance, the code will generate the facial landmarks to locate the mouth and eyes:
 
-<img src="./yawning_dataset/frames/landmarks.png" alt="landmarks" style="zoom:33%;" />
+<img src="./readme_figs/landmarks.png" alt="landmarks" style="zoom:33%;" />
 
 Then the detection algorithm will measure the average euclidian distance between the top lip and the bottom lip. If the distance is higher than a certain threshold (we emperically found is 15), then the mouths will be labeled as "Yawning". To remove the interference of other objectives in each frame, the final dataset will only included mouth that cropped from the frame (based on the landmarks).
 
@@ -122,6 +122,8 @@ To run the eye closure training, pleas copy the following command to your termin
 ```python
 bash train_fp_eyeclosure.sh
 ```
+
+**The reuslts of training can testing can be found in ** `results` **folder**.
 
 ------
 

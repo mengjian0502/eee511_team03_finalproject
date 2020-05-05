@@ -1,0 +1,401 @@
+save path : ./save/SqueezeNet/decay0.0002_w32_a32_eyeclosure
+{'arch': 'squeezenet1_1_grey', 'batch_size': 32, 'data_path': './dataset/', 'dataset': 'eyeclosure', 'decay': 0.0001, 'epochs': 50, 'evaluate': False, 'fine_tune': False, 'gammas': [0.1, 0.1], 'gpu_id': 2, 'layer_begin': 1, 'layer_end': 1, 'layer_inter': 1, 'learning_rate': 0.01, 'manualSeed': 5000, 'model_only': False, 'momentum': 0.9, 'ngpu': 1, 'optimizer': 'SGD', 'print_freq': 100, 'resume': '', 'save_path': './save/SqueezeNet/decay0.0002_w32_a32_eyeclosure', 'schedule': [30, 40], 'skip_downsample': 1, 'start_epoch': 0, 'use_cuda': True, 'workers': 4}
+Random Seed: 5000
+python version : 3.7.4 (default, Aug 13 2019, 20:35:49)  [GCC 7.3.0]
+torch  version : 1.4.0
+cudnn  version : 7603
+Weight Decay: 0.0001
+=> creating model 'squeezenet1_1_grey'
+=> network :
+ SqueezeNet_grey(
+  (features): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(2, 2))
+    (1): ReLU(inplace=True)
+    (2): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (3): Fire(
+      (squeeze): Conv2d(64, 16, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (4): Fire(
+      (squeeze): Conv2d(128, 16, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (5): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (6): Fire(
+      (squeeze): Conv2d(128, 32, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (7): Fire(
+      (squeeze): Conv2d(256, 32, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (8): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (9): Fire(
+      (squeeze): Conv2d(256, 48, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (10): Fire(
+      (squeeze): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (11): Fire(
+      (squeeze): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (12): Fire(
+      (squeeze): Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+  )
+  (classifier): Sequential(
+    (0): Dropout(p=0.5, inplace=False)
+    (1): Conv2d(512, 10, kernel_size=(1, 1), stride=(1, 1))
+    (2): ReLU(inplace=True)
+    (3): AdaptiveAvgPool2d(output_size=(1, 1))
+  )
+)
+=> do not use any checkpoint for squeezenet1_1_grey model
+
+==>>[2020-05-05 20:24:15] [Epoch=000/050] [Need: 00:00:00] [LR=0.01000][M=0.90] [Best : Accuracy=0.00, Error=100.00]
+  Epoch: [000][000/122]   Time 0.291 (0.291)   Data 0.056 (0.056)   Loss 2.3029 (2.3029)   Prec@1 9.375 (9.375)   Prec@5 78.125 (78.125)   [2020-05-05 20:24:15]
+  Epoch: [000][100/122]   Time 0.007 (0.010)   Data 0.000 (0.001)   Loss 0.7021 (0.9601)   Prec@1 53.125 (48.886)   Prec@5 100.000 (99.752)   [2020-05-05 20:24:16]
+  **Train** Prec@1 49.665 Prec@5 99.794 Error@1 50.335
+  **Test** Prec@1 50.619 Prec@5 100.000 Error@1 49.381
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:16] [Epoch=001/050] [Need: 00:01:08] [LR=0.01000][M=0.90] [Best : Accuracy=50.62, Error=49.38]
+  Epoch: [001][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.7967 (0.7967)   Prec@1 43.750 (43.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:16]
+  Epoch: [001][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.5125 (0.6591)   Prec@1 68.750 (62.469)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:17]
+  **Train** Prec@1 63.906 Prec@5 100.000 Error@1 36.094
+  **Test** Prec@1 76.186 Prec@5 100.000 Error@1 23.814
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:17] [Epoch=002/050] [Need: 00:01:03] [LR=0.01000][M=0.90] [Best : Accuracy=76.19, Error=23.81]
+  Epoch: [002][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.5993 (0.5993)   Prec@1 71.875 (71.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:17]
+  Epoch: [002][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.3434 (0.4556)   Prec@1 84.375 (79.889)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:18]
+  **Train** Prec@1 80.624 Prec@5 100.000 Error@1 19.376
+  **Test** Prec@1 80.928 Prec@5 100.000 Error@1 19.072
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:19] [Epoch=003/050] [Need: 00:01:00] [LR=0.01000][M=0.90] [Best : Accuracy=80.93, Error=19.07]
+  Epoch: [003][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.2784 (0.2784)   Prec@1 84.375 (84.375)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:19]
+  Epoch: [003][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1363 (0.2997)   Prec@1 96.875 (88.954)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:19]
+  **Train** Prec@1 88.854 Prec@5 100.000 Error@1 11.146
+  **Test** Prec@1 91.959 Prec@5 100.000 Error@1 8.041
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:20] [Epoch=004/050] [Need: 00:00:58] [LR=0.01000][M=0.90] [Best : Accuracy=91.96, Error=8.04]
+  Epoch: [004][000/122]   Time 0.065 (0.065)   Data 0.055 (0.055)   Loss 0.1339 (0.1339)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:20]
+  Epoch: [004][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0888 (0.2226)   Prec@1 96.875 (91.925)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:21]
+  **Train** Prec@1 91.950 Prec@5 100.000 Error@1 8.050
+  **Test** Prec@1 93.196 Prec@5 100.000 Error@1 6.804
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:21] [Epoch=005/050] [Need: 00:00:57] [LR=0.01000][M=0.90] [Best : Accuracy=93.20, Error=6.80]
+  Epoch: [005][000/122]   Time 0.067 (0.067)   Data 0.058 (0.058)   Loss 0.2314 (0.2314)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:21]
+  Epoch: [005][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1927 (0.1856)   Prec@1 93.750 (92.976)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:22]
+  **Train** Prec@1 93.086 Prec@5 100.000 Error@1 6.914
+  **Test** Prec@1 93.608 Prec@5 100.000 Error@1 6.392
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:22] [Epoch=006/050] [Need: 00:00:56] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [006][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.2535 (0.2535)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:23]
+  Epoch: [006][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.2649 (0.1912)   Prec@1 87.500 (92.698)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:23]
+  **Train** Prec@1 93.008 Prec@5 100.000 Error@1 6.992
+  **Test** Prec@1 92.062 Prec@5 100.000 Error@1 7.938
+
+==>>[2020-05-05 20:24:24] [Epoch=007/050] [Need: 00:00:55] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [007][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0780 (0.0780)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:24]
+  Epoch: [007][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0915 (0.1602)   Prec@1 93.750 (93.936)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:24]
+  **Train** Prec@1 93.911 Prec@5 100.000 Error@1 6.089
+  **Test** Prec@1 93.402 Prec@5 100.000 Error@1 6.598
+
+==>>[2020-05-05 20:24:25] [Epoch=008/050] [Need: 00:00:53] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [008][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.2884 (0.2884)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:25]
+  Epoch: [008][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.3630 (0.1586)   Prec@1 93.750 (94.121)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:26]
+  **Train** Prec@1 94.401 Prec@5 100.000 Error@1 5.599
+  **Test** Prec@1 90.412 Prec@5 100.000 Error@1 9.588
+
+==>>[2020-05-05 20:24:26] [Epoch=009/050] [Need: 00:00:52] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [009][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.0473 (0.0473)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:26]
+  Epoch: [009][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0996 (0.1652)   Prec@1 96.875 (93.688)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:27]
+  **Train** Prec@1 93.834 Prec@5 100.000 Error@1 6.166
+  **Test** Prec@1 93.299 Prec@5 100.000 Error@1 6.701
+
+==>>[2020-05-05 20:24:27] [Epoch=010/050] [Need: 00:00:50] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [010][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.0824 (0.0824)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:28]
+  Epoch: [010][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1202 (0.1537)   Prec@1 93.750 (93.967)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:28]
+  **Train** Prec@1 94.014 Prec@5 100.000 Error@1 5.986
+  **Test** Prec@1 91.340 Prec@5 100.000 Error@1 8.660
+
+==>>[2020-05-05 20:24:29] [Epoch=011/050] [Need: 00:00:49] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [011][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.1026 (0.1026)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:29]
+  Epoch: [011][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1377 (0.1444)   Prec@1 96.875 (94.462)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:29]
+  **Train** Prec@1 94.659 Prec@5 100.000 Error@1 5.341
+  **Test** Prec@1 92.062 Prec@5 100.000 Error@1 7.938
+
+==>>[2020-05-05 20:24:30] [Epoch=012/050] [Need: 00:00:48] [LR=0.01000][M=0.90] [Best : Accuracy=93.61, Error=6.39]
+  Epoch: [012][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.1403 (0.1403)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:30]
+  Epoch: [012][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1121 (0.1358)   Prec@1 93.750 (94.895)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:31]
+  **Train** Prec@1 95.150 Prec@5 100.000 Error@1 4.850
+  **Test** Prec@1 95.464 Prec@5 100.000 Error@1 4.536
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:31] [Epoch=013/050] [Need: 00:00:46] [LR=0.01000][M=0.90] [Best : Accuracy=95.46, Error=4.54]
+  Epoch: [013][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.1191 (0.1191)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:31]
+  Epoch: [013][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1082 (0.1201)   Prec@1 93.750 (95.792)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:32]
+  **Train** Prec@1 95.769 Prec@5 100.000 Error@1 4.231
+  **Test** Prec@1 92.990 Prec@5 100.000 Error@1 7.010
+
+==>>[2020-05-05 20:24:32] [Epoch=014/050] [Need: 00:00:45] [LR=0.01000][M=0.90] [Best : Accuracy=95.46, Error=4.54]
+  Epoch: [014][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.2474 (0.2474)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:33]
+  Epoch: [014][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0354 (0.1309)   Prec@1 100.000 (95.730)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:33]
+  **Train** Prec@1 95.537 Prec@5 100.000 Error@1 4.463
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:34] [Epoch=015/050] [Need: 00:00:44] [LR=0.01000][M=0.90] [Best : Accuracy=95.67, Error=4.33]
+  Epoch: [015][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.1513 (0.1513)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:34]
+  Epoch: [015][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1299 (0.1402)   Prec@1 96.875 (94.585)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:34]
+  **Train** Prec@1 94.866 Prec@5 100.000 Error@1 5.134
+  **Test** Prec@1 95.464 Prec@5 100.000 Error@1 4.536
+
+==>>[2020-05-05 20:24:35] [Epoch=016/050] [Need: 00:00:42] [LR=0.01000][M=0.90] [Best : Accuracy=95.67, Error=4.33]
+  Epoch: [016][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.2456 (0.2456)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:35]
+  Epoch: [016][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0955 (0.1085)   Prec@1 96.875 (96.009)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:36]
+  **Train** Prec@1 95.717 Prec@5 100.000 Error@1 4.283
+  **Test** Prec@1 95.876 Prec@5 100.000 Error@1 4.124
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:36] [Epoch=017/050] [Need: 00:00:41] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [017][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.0336 (0.0336)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:36]
+  Epoch: [017][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0429 (0.1156)   Prec@1 100.000 (95.947)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:37]
+  **Train** Prec@1 95.795 Prec@5 100.000 Error@1 4.205
+  **Test** Prec@1 93.093 Prec@5 100.000 Error@1 6.907
+
+==>>[2020-05-05 20:24:37] [Epoch=018/050] [Need: 00:00:40] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [018][000/122]   Time 0.067 (0.067)   Data 0.058 (0.058)   Loss 0.1803 (0.1803)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:38]
+  Epoch: [018][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1230 (0.1635)   Prec@1 96.875 (94.276)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:38]
+  **Train** Prec@1 94.505 Prec@5 100.000 Error@1 5.495
+  **Test** Prec@1 95.464 Prec@5 100.000 Error@1 4.536
+
+==>>[2020-05-05 20:24:39] [Epoch=019/050] [Need: 00:00:39] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [019][000/122]   Time 0.068 (0.068)   Data 0.059 (0.059)   Loss 0.2769 (0.2769)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:39]
+  Epoch: [019][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0257 (0.1288)   Prec@1 100.000 (95.173)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:40]
+  **Train** Prec@1 95.459 Prec@5 100.000 Error@1 4.541
+  **Test** Prec@1 91.134 Prec@5 100.000 Error@1 8.866
+
+==>>[2020-05-05 20:24:40] [Epoch=020/050] [Need: 00:00:37] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [020][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.3459 (0.3459)   Prec@1 87.500 (87.500)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:40]
+  Epoch: [020][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0750 (0.1074)   Prec@1 100.000 (96.473)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:41]
+  **Train** Prec@1 96.259 Prec@5 100.000 Error@1 3.741
+  **Test** Prec@1 94.948 Prec@5 100.000 Error@1 5.052
+
+==>>[2020-05-05 20:24:41] [Epoch=021/050] [Need: 00:00:36] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [021][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.1090 (0.1090)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:41]
+  Epoch: [021][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.1417 (0.1197)   Prec@1 93.750 (96.009)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:42]
+  **Train** Prec@1 96.001 Prec@5 100.000 Error@1 3.999
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:24:43] [Epoch=022/050] [Need: 00:00:35] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [022][000/122]   Time 0.069 (0.069)   Data 0.060 (0.060)   Loss 0.2828 (0.2828)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:43]
+  Epoch: [022][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0394 (0.1040)   Prec@1 100.000 (96.318)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:43]
+  **Train** Prec@1 96.336 Prec@5 100.000 Error@1 3.664
+  **Test** Prec@1 94.433 Prec@5 100.000 Error@1 5.567
+
+==>>[2020-05-05 20:24:44] [Epoch=023/050] [Need: 00:00:34] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [023][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0971 (0.0971)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:44]
+  Epoch: [023][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1153 (0.1028)   Prec@1 96.875 (96.473)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:45]
+  **Train** Prec@1 96.465 Prec@5 100.000 Error@1 3.535
+  **Test** Prec@1 95.464 Prec@5 100.000 Error@1 4.536
+
+==>>[2020-05-05 20:24:45] [Epoch=024/050] [Need: 00:00:32] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [024][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.0144 (0.0144)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:45]
+  Epoch: [024][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0317 (0.1079)   Prec@1 100.000 (96.194)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:46]
+  **Train** Prec@1 96.156 Prec@5 100.000 Error@1 3.844
+  **Test** Prec@1 92.268 Prec@5 100.000 Error@1 7.732
+
+==>>[2020-05-05 20:24:46] [Epoch=025/050] [Need: 00:00:31] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [025][000/122]   Time 0.067 (0.067)   Data 0.058 (0.058)   Loss 0.0133 (0.0133)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:46]
+  Epoch: [025][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1864 (0.0872)   Prec@1 90.625 (96.504)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:47]
+  **Train** Prec@1 96.440 Prec@5 100.000 Error@1 3.560
+  **Test** Prec@1 95.464 Prec@5 100.000 Error@1 4.536
+
+==>>[2020-05-05 20:24:48] [Epoch=026/050] [Need: 00:00:30] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [026][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.0809 (0.0809)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:48]
+  Epoch: [026][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.1674 (0.0909)   Prec@1 93.750 (96.566)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:48]
+  **Train** Prec@1 96.543 Prec@5 100.000 Error@1 3.457
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:24:49] [Epoch=027/050] [Need: 00:00:29] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [027][000/122]   Time 0.069 (0.069)   Data 0.060 (0.060)   Loss 0.0893 (0.0893)   Prec@1 93.750 (93.750)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:49]
+  Epoch: [027][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0595 (0.0917)   Prec@1 100.000 (96.782)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:50]
+  **Train** Prec@1 96.749 Prec@5 100.000 Error@1 3.251
+  **Test** Prec@1 95.052 Prec@5 100.000 Error@1 4.948
+
+==>>[2020-05-05 20:24:50] [Epoch=028/050] [Need: 00:00:27] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [028][000/122]   Time 0.067 (0.067)   Data 0.056 (0.056)   Loss 0.3904 (0.3904)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:50]
+  Epoch: [028][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.2322 (0.0913)   Prec@1 96.875 (96.844)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:51]
+  **Train** Prec@1 96.930 Prec@5 100.000 Error@1 3.070
+  **Test** Prec@1 94.948 Prec@5 100.000 Error@1 5.052
+
+==>>[2020-05-05 20:24:51] [Epoch=029/050] [Need: 00:00:26] [LR=0.01000][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [029][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0924 (0.0924)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:51]
+  Epoch: [029][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0037 (0.0865)   Prec@1 100.000 (96.751)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:52]
+  **Train** Prec@1 96.827 Prec@5 100.000 Error@1 3.173
+  **Test** Prec@1 95.258 Prec@5 100.000 Error@1 4.742
+
+==>>[2020-05-05 20:24:53] [Epoch=030/050] [Need: 00:00:25] [LR=0.00100][M=0.90] [Best : Accuracy=95.88, Error=4.12]
+  Epoch: [030][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.1736 (0.1736)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:53]
+  Epoch: [030][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0163 (0.0629)   Prec@1 100.000 (97.896)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:53]
+  **Train** Prec@1 97.910 Prec@5 100.000 Error@1 2.090
+  **Test** Prec@1 96.289 Prec@5 100.000 Error@1 3.711
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:54] [Epoch=031/050] [Need: 00:00:23] [LR=0.00100][M=0.90] [Best : Accuracy=96.29, Error=3.71]
+  Epoch: [031][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0104 (0.0104)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:54]
+  Epoch: [031][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0773 (0.0507)   Prec@1 96.875 (98.205)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:55]
+  **Train** Prec@1 98.323 Prec@5 100.000 Error@1 1.677
+  **Test** Prec@1 96.392 Prec@5 100.000 Error@1 3.608
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:55] [Epoch=032/050] [Need: 00:00:22] [LR=0.00100][M=0.90] [Best : Accuracy=96.39, Error=3.61]
+  Epoch: [032][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.0173 (0.0173)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:55]
+  Epoch: [032][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0617 (0.0460)   Prec@1 96.875 (98.608)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:56]
+  **Train** Prec@1 98.607 Prec@5 100.000 Error@1 1.393
+  **Test** Prec@1 96.289 Prec@5 100.000 Error@1 3.711
+
+==>>[2020-05-05 20:24:56] [Epoch=033/050] [Need: 00:00:21] [LR=0.00100][M=0.90] [Best : Accuracy=96.39, Error=3.61]
+  Epoch: [033][000/122]   Time 0.068 (0.068)   Data 0.057 (0.057)   Loss 0.1627 (0.1627)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:57]
+  Epoch: [033][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0083 (0.0438)   Prec@1 100.000 (98.639)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:57]
+  **Train** Prec@1 98.684 Prec@5 100.000 Error@1 1.316
+  **Test** Prec@1 96.495 Prec@5 100.000 Error@1 3.505
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:24:58] [Epoch=034/050] [Need: 00:00:20] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [034][000/122]   Time 0.066 (0.066)   Data 0.056 (0.056)   Loss 0.0086 (0.0086)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:58]
+  Epoch: [034][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0035 (0.0369)   Prec@1 100.000 (98.886)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:58]
+  **Train** Prec@1 98.787 Prec@5 100.000 Error@1 1.213
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:24:59] [Epoch=035/050] [Need: 00:00:18] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [035][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0391 (0.0391)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:24:59]
+  Epoch: [035][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0997 (0.0407)   Prec@1 96.875 (98.577)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:00]
+  **Train** Prec@1 98.684 Prec@5 100.000 Error@1 1.316
+  **Test** Prec@1 96.289 Prec@5 100.000 Error@1 3.711
+
+==>>[2020-05-05 20:25:00] [Epoch=036/050] [Need: 00:00:17] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [036][000/122]   Time 0.067 (0.067)   Data 0.056 (0.056)   Loss 0.1311 (0.1311)   Prec@1 90.625 (90.625)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:00]
+  Epoch: [036][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0179 (0.0379)   Prec@1 100.000 (98.762)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:01]
+  **Train** Prec@1 98.891 Prec@5 100.000 Error@1 1.109
+  **Test** Prec@1 96.186 Prec@5 100.000 Error@1 3.814
+
+==>>[2020-05-05 20:25:01] [Epoch=037/050] [Need: 00:00:16] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [037][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0325 (0.0325)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:02]
+  Epoch: [037][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0112 (0.0368)   Prec@1 100.000 (98.855)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:02]
+  **Train** Prec@1 98.968 Prec@5 100.000 Error@1 1.032
+  **Test** Prec@1 95.876 Prec@5 100.000 Error@1 4.124
+
+==>>[2020-05-05 20:25:03] [Epoch=038/050] [Need: 00:00:15] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [038][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.0020 (0.0020)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:03]
+  Epoch: [038][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0435 (0.0330)   Prec@1 96.875 (99.010)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:04]
+  **Train** Prec@1 98.994 Prec@5 100.000 Error@1 1.006
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:25:04] [Epoch=039/050] [Need: 00:00:13] [LR=0.00100][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [039][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0059 (0.0059)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:04]
+  Epoch: [039][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0064 (0.0325)   Prec@1 100.000 (99.134)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:05]
+  **Train** Prec@1 99.174 Prec@5 100.000 Error@1 0.826
+  **Test** Prec@1 96.082 Prec@5 100.000 Error@1 3.918
+
+==>>[2020-05-05 20:25:05] [Epoch=040/050] [Need: 00:00:12] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [040][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0272 (0.0272)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:05]
+  Epoch: [040][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0130 (0.0288)   Prec@1 100.000 (99.319)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:06]
+  **Train** Prec@1 99.278 Prec@5 100.000 Error@1 0.722
+  **Test** Prec@1 95.567 Prec@5 100.000 Error@1 4.433
+
+==>>[2020-05-05 20:25:06] [Epoch=041/050] [Need: 00:00:11] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [041][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0054 (0.0054)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:07]
+  Epoch: [041][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0127 (0.0294)   Prec@1 100.000 (99.288)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:07]
+  **Train** Prec@1 99.278 Prec@5 100.000 Error@1 0.722
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:25:08] [Epoch=042/050] [Need: 00:00:10] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [042][000/122]   Time 0.068 (0.068)   Data 0.059 (0.059)   Loss 0.0074 (0.0074)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:08]
+  Epoch: [042][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0077 (0.0282)   Prec@1 100.000 (99.288)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:09]
+  **Train** Prec@1 99.329 Prec@5 100.000 Error@1 0.671
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:25:09] [Epoch=043/050] [Need: 00:00:08] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [043][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.0142 (0.0142)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:09]
+  Epoch: [043][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0028 (0.0266)   Prec@1 100.000 (99.288)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:10]
+  **Train** Prec@1 99.303 Prec@5 100.000 Error@1 0.697
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:25:10] [Epoch=044/050] [Need: 00:00:07] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [044][000/122]   Time 0.068 (0.068)   Data 0.057 (0.057)   Loss 0.0016 (0.0016)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:10]
+  Epoch: [044][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0030 (0.0257)   Prec@1 100.000 (99.381)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:11]
+  **Train** Prec@1 99.381 Prec@5 100.000 Error@1 0.619
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:25:12] [Epoch=045/050] [Need: 00:00:06] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [045][000/122]   Time 0.068 (0.068)   Data 0.058 (0.058)   Loss 0.0189 (0.0189)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:12]
+  Epoch: [045][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0015 (0.0224)   Prec@1 100.000 (99.443)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:12]
+  **Train** Prec@1 99.355 Prec@5 100.000 Error@1 0.645
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:25:13] [Epoch=046/050] [Need: 00:00:05] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [046][000/122]   Time 0.067 (0.067)   Data 0.057 (0.057)   Loss 0.0045 (0.0045)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:13]
+  Epoch: [046][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0088 (0.0256)   Prec@1 100.000 (99.319)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:14]
+  **Train** Prec@1 99.329 Prec@5 100.000 Error@1 0.671
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:25:14] [Epoch=047/050] [Need: 00:00:03] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [047][000/122]   Time 0.068 (0.068)   Data 0.057 (0.057)   Loss 0.0068 (0.0068)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:14]
+  Epoch: [047][100/122]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0042 (0.0245)   Prec@1 100.000 (99.412)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:15]
+  **Train** Prec@1 99.355 Prec@5 100.000 Error@1 0.645
+  **Test** Prec@1 95.670 Prec@5 100.000 Error@1 4.330
+
+==>>[2020-05-05 20:25:15] [Epoch=048/050] [Need: 00:00:02] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [048][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.0083 (0.0083)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:15]
+  Epoch: [048][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0159 (0.0256)   Prec@1 100.000 (99.350)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:16]
+  **Train** Prec@1 99.355 Prec@5 100.000 Error@1 0.645
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227
+
+==>>[2020-05-05 20:25:17] [Epoch=049/050] [Need: 00:00:01] [LR=0.00010][M=0.90] [Best : Accuracy=96.49, Error=3.51]
+  Epoch: [049][000/122]   Time 0.066 (0.066)   Data 0.057 (0.057)   Loss 0.1003 (0.1003)   Prec@1 96.875 (96.875)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:17]
+  Epoch: [049][100/122]   Time 0.007 (0.007)   Data 0.000 (0.001)   Loss 0.0014 (0.0248)   Prec@1 100.000 (99.350)   Prec@5 100.000 (100.000)   [2020-05-05 20:25:17]
+  **Train** Prec@1 99.355 Prec@5 100.000 Error@1 0.645
+  **Test** Prec@1 95.773 Prec@5 100.000 Error@1 4.227

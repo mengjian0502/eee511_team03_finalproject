@@ -1,0 +1,150 @@
+save path : ./save/SqueezeNet/decay0.0002_w32_a32_yawnDD
+{'arch': 'squeezenet1_1', 'batch_size': 64, 'data_path': './dataset/', 'dataset': 'yawnDD', 'decay': 0.0001, 'epochs': 10, 'evaluate': False, 'fine_tune': False, 'gammas': [0.1, 0.1], 'gpu_id': 2, 'layer_begin': 1, 'layer_end': 1, 'layer_inter': 1, 'learning_rate': 0.01, 'manualSeed': 5000, 'model_only': False, 'momentum': 0.9, 'ngpu': 1, 'optimizer': 'SGD', 'print_freq': 100, 'resume': '', 'save_path': './save/SqueezeNet/decay0.0002_w32_a32_yawnDD', 'schedule': [80, 120], 'skip_downsample': 1, 'start_epoch': 0, 'use_cuda': True, 'workers': 4}
+Random Seed: 5000
+python version : 3.7.4 (default, Aug 13 2019, 20:35:49)  [GCC 7.3.0]
+torch  version : 1.4.0
+cudnn  version : 7603
+Weight Decay: 0.0001
+=> creating model 'squeezenet1_1'
+=> network :
+ SqueezeNet(
+  (features): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+    (1): ReLU(inplace=True)
+    (2): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (3): Fire(
+      (squeeze): Conv2d(64, 16, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (4): Fire(
+      (squeeze): Conv2d(128, 16, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(16, 64, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(16, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (5): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (6): Fire(
+      (squeeze): Conv2d(128, 32, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (7): Fire(
+      (squeeze): Conv2d(256, 32, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(32, 128, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(32, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (8): MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=True)
+    (9): Fire(
+      (squeeze): Conv2d(256, 48, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (10): Fire(
+      (squeeze): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(48, 192, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(48, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (11): Fire(
+      (squeeze): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+    (12): Fire(
+      (squeeze): Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
+      (squeeze_activation): ReLU(inplace=True)
+      (expand1x1): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1))
+      (expand1x1_activation): ReLU(inplace=True)
+      (expand3x3): Conv2d(64, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (expand3x3_activation): ReLU(inplace=True)
+    )
+  )
+  (classifier): Sequential(
+    (0): Dropout(p=0.5, inplace=False)
+    (1): Conv2d(512, 10, kernel_size=(1, 1), stride=(1, 1))
+    (2): ReLU(inplace=True)
+    (3): AdaptiveAvgPool2d(output_size=(1, 1))
+  )
+)
+=> do not use any checkpoint for squeezenet1_1 model
+
+==>>[2020-05-05 20:26:46] [Epoch=000/010] [Need: 00:00:00] [LR=0.01000][M=0.90] [Best : Accuracy=0.00, Error=100.00]
+  Epoch: [000][000/166]   Time 0.327 (0.327)   Data 0.062 (0.062)   Loss 2.3266 (2.3266)   Prec@1 1.562 (1.562)   Prec@5 40.625 (40.625)   [2020-05-05 20:26:47]
+  Epoch: [000][100/166]   Time 0.007 (0.010)   Data 0.000 (0.001)   Loss 0.0000 (0.0596)   Prec@1 100.000 (98.840)   Prec@5 100.000 (99.412)   [2020-05-05 20:26:47]
+  **Train** Prec@1 99.290 Prec@5 99.640 Error@1 0.710
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+=> Obtain best accuracy, and update the best model
+
+==>>[2020-05-05 20:26:48] [Epoch=001/010] [Need: 00:00:16] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [001][000/166]   Time 0.070 (0.070)   Data 0.060 (0.060)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:48]
+  Epoch: [001][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:49]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:50] [Epoch=002/010] [Need: 00:00:13] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [002][000/166]   Time 0.070 (0.070)   Data 0.059 (0.059)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:50]
+  Epoch: [002][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:51]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:51] [Epoch=003/010] [Need: 00:00:11] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [003][000/166]   Time 0.070 (0.070)   Data 0.059 (0.059)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:51]
+  Epoch: [003][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:52]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:53] [Epoch=004/010] [Need: 00:00:09] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [004][000/166]   Time 0.069 (0.069)   Data 0.059 (0.059)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:53]
+  Epoch: [004][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:54]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:55] [Epoch=005/010] [Need: 00:00:08] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [005][000/166]   Time 0.070 (0.070)   Data 0.060 (0.060)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:55]
+  Epoch: [005][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:55]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:56] [Epoch=006/010] [Need: 00:00:06] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [006][000/166]   Time 0.069 (0.069)   Data 0.059 (0.059)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:56]
+  Epoch: [006][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:57]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:26:58] [Epoch=007/010] [Need: 00:00:04] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [007][000/166]   Time 0.070 (0.070)   Data 0.060 (0.060)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:58]
+  Epoch: [007][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:26:59]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:27:00] [Epoch=008/010] [Need: 00:00:03] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [008][000/166]   Time 0.071 (0.071)   Data 0.060 (0.060)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:27:00]
+  Epoch: [008][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:27:00]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+
+==>>[2020-05-05 20:27:01] [Epoch=009/010] [Need: 00:00:01] [LR=0.01000][M=0.90] [Best : Accuracy=100.00, Error=0.00]
+  Epoch: [009][000/166]   Time 0.072 (0.072)   Data 0.064 (0.064)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:27:01]
+  Epoch: [009][100/166]   Time 0.007 (0.008)   Data 0.000 (0.001)   Loss 0.0000 (0.0000)   Prec@1 100.000 (100.000)   Prec@5 100.000 (100.000)   [2020-05-05 20:27:02]
+  **Train** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
+  **Test** Prec@1 100.000 Prec@5 100.000 Error@1 0.000
