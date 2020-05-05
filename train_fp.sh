@@ -14,7 +14,7 @@ fi
 ############ Configurations ###############
 model=squeezenet1_1
 dataset=yawnDD
-epochs=300
+epochs=10
 batch_size=64
 optimizer=SGD
 
