@@ -128,7 +128,7 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
         crop_mouth = cv2.resize(crop_mouth, (32, 32))
         if lip_distance >= 15:
             print(f'Yawning!!! yawn_count={yawn_count}')
-            label = [0,1]
+            label = 1
 
             print('saving....')
             dataset.append(crop_mouth)
@@ -136,7 +136,7 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
 
             yawn_count+=1
         else:
-            label = [0,0]
+            label = 0
             print(f'lip distance: {lip_distance}')
             if close_count < yawn_count:
                 dataset.append(crop_mouth)
@@ -160,7 +160,7 @@ def main():
             target = target + label
 
     dataset = torch.Tensor(dataset)
-    target = torch.Tensor(target)
+    target = torch.Tensor(target).long()
     
     print(f'shape of the final dataset: {list(dataset.size())} | shape of the final target: {list(target.size())}')
 
