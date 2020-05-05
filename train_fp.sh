@@ -13,7 +13,7 @@ fi
 
 ############ Configurations ###############
 model=squeezenet1_1
-dataset=cifar10
+dataset=yawnDD
 epochs=300
 batch_size=64
 optimizer=SGD
@@ -23,7 +23,7 @@ label_info=
 
 $PYTHON -W ignore main.py --dataset ${dataset} \
     --data_path ./dataset/   \
-    --arch ${model} --save_path ./save/SqueezeNet/decay0.0002_w32_a4_pact_quan \
+    --arch ${model} --save_path ./save/SqueezeNet/decay0.0002_w32_a32_yawnDD \
     --epochs ${epochs}  --learning_rate  0.01 \
     --optimizer ${optimizer} \
     --schedule 120 240   --gammas 0.1 0.1\

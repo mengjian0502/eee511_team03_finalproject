@@ -42,7 +42,7 @@ parser = argparse.ArgumentParser(description='Training network for image classif
 
 parser.add_argument('--data_path', default='/home/elliot/data/pytorch/svhn/',
                     type=str, help='Path to dataset')
-parser.add_argument('--dataset', type=str, choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist'],
+parser.add_argument('--dataset', type=str, choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist', 'yawnDD'],
                     help='Choose between Cifar10/100 and ImageNet.')
 parser.add_argument('--arch', metavar='ARCH', default='lbcnn', choices=model_names,
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnext29_8_64)')
@@ -226,6 +226,18 @@ def main():
         train_data = dset.ImageFolder(train_dir, transform=train_transform)
         test_data = dset.ImageFolder(test_dir, transform=test_transform)
         num_classes = 1000
+    elif args.dataset == 'yawnDD':
+        dataset = torch.load('./yawning_dataset/yawnDD_image.pt')
+        target = torch.load('./yawning_dataset/yawnDD_label.pt')
+
+        train_dataset = dataset[:int(0.8*dataset.size(0))]
+        train_target = target[:int(0.8*dataset.size(0))]
+
+        test_dataset = dataset[-int(0.2*dataset.size(0)):]
+        test_target = target[-int(0.2*dataset.size(0)):]
+
+        train_data = torch.utils.TensorDataset(train_dataset, train_target)
+        test_data = torch.utils.TensorDataset(test_dataset, test_target)
     else:
         assert False, 'Do not support dataset : {}'.format(args.dataset)
 

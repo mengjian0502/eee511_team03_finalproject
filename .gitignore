@@ -1,3 +1,7 @@
 dataset/
 save/
 __pycache__/
+*/frames/
+*/videos/
+yawning_dataset/yawnDD_image.pt
+yawning_dataset/yawnDD_label.pt
