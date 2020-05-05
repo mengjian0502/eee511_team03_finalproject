@@ -8,6 +8,11 @@ import matplotlib.pyplot as plt
 import dlib
 import torch
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='YawnDD dataset pre-processing')
+parser.add_argument('--data_gen', action='store_true', help='generate the entire dataset')
+args = parser.parse_args()
 
 TOTAL_FRAME_FLAG = cv2.CAP_PROP_FRAME_COUNT
 PREDICTOR_PATH = "shape_predictor_68_face_landmarks.dat"
@@ -100,6 +105,7 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
 
     yawn_count = 0
     close_count = 0
+    fig_count = 1
 
     if total_num_frames is None:
         total_num_frames = int(cap.get(TOTAL_FRAME_FLAG))    # get total number of frames
@@ -109,9 +115,6 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
         success,image = cap.read()
         print(f'frame: {ii}')
         image = cv2.resize(image, (320, 320))
-        cv2.imwrite(f"./frames/frames_face_{ii}.jpg", image)
-        
-        # cropped_face = facial_detection(image)
         
         image_landmarks, landmarks, lip_distance, crop_mouth = mouth_open(image)
 
@@ -122,10 +125,10 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
             image_2 = image.copy()
             for p in landmarks:
                 image_2[p[0,1]-1:p[0,1]+1, p[0,0]-1:p[0,0]+1, :] = (255, 255, 255)
-                plt.imshow(image_2)
-
-        # print(crop_mouth.shape)
-        crop_mouth = cv2.resize(crop_mouth, (32, 32))
+                plt.imshow(cv2.cvtColor(image_2, cv2.COLOR_BGR2RGB))
+            plt.savefig('./frames/landmarks.png', dpi=300, bbox_inches = 'tight', pad_inches = 0)
+    
+        crop_mouth = cv2.resize(crop_mouth, (64, 64))
         if lip_distance >= 15:
             print(f'Yawning!!! yawn_count={yawn_count}')
             label = 1
@@ -133,6 +136,10 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
             print('saving....')
             dataset.append(crop_mouth)
             target.append(label)
+
+            if yawn_count < fig_count:
+                plt.imshow(cv2.cvtColor(crop_mouth, cv2.COLOR_BGR2RGB))
+                plt.savefig('./frames/crop_mouth_open.png', dpi=300, bbox_inches = 'tight', pad_inches = 0)
 
             yawn_count+=1
         else:
@@ -151,22 +158,26 @@ def get_frames(path, total_num_frames=None, dataset=[], target=[]):
 def main():
     dataset = []
     target = []
-    for kk in os.listdir('./videos'):
-        if '.avi' in kk:
-            print(f'Extracting {kk}....')
-            data, label = get_frames('./videos/'+kk, total_num_frames=None)
-            print(f'shape of the dataset: {len(data)}')
-            dataset = dataset + data
-            target = target + label
 
-    dataset = torch.Tensor(dataset)
-    target = torch.Tensor(target).long()
+    dataset_gen = args.data_gen
+
+    if dataset_gen:
+        for kk in os.listdir('./videos'):
+            if '.avi' in kk:
+                print(f'Extracting {kk}....')
+                data, label = get_frames('./videos/'+kk, total_num_frames=None)
+                print(f'shape of the dataset: {len(data)}')
+                dataset = dataset + data
+                target = target + label
+        dataset = torch.Tensor(dataset)
+        target = torch.Tensor(target).long()
     
-    print(f'shape of the final dataset: {list(dataset.size())} | shape of the final target: {list(target.size())}')
+        print(f'shape of the final dataset: {list(dataset.size())} | shape of the final target: {list(target.size())}')
+        # torch.save(dataset, './yawnDD_image.pt')
+        # torch.save(target, './yawnDD_label.pt')
 
-    torch.save(dataset, './yawnDD_image.pt')
-    torch.save(target, './yawnDD_label.pt')
-
+    data, label = get_frames('./videos/6-MaleGlasses.avi', total_num_frames=None)
+    print(f'shape of the dataset: {len(data)}')
 
 
 
