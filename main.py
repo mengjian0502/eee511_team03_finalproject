@@ -161,6 +161,8 @@ def main():
     elif args.dataset == 'imagenet':
         mean = [0.485, 0.456, 0.406]
         std = [0.229, 0.224, 0.225]
+    elif args.dataset == 'yawnDD':
+        print(f'YawnDD dataset!')
     else:
         assert False, "Unknow dataset : {}".format(args.dataset)
 
@@ -177,7 +179,7 @@ def main():
             transforms.ToTensor(),
             transforms.Normalize(mean, std)
         ])  # here is actually the validation dataset
-    else:
+    elif args.dataset != 'yawnDD':
         train_transform = transforms.Compose([
             transforms.RandomHorizontalFlip(),
             transforms.RandomCrop(32, padding=4),
@@ -227,8 +229,10 @@ def main():
         test_data = dset.ImageFolder(test_dir, transform=test_transform)
         num_classes = 1000
     elif args.dataset == 'yawnDD':
-        dataset = torch.load('./yawning_dataset/yawnDD_image.pt')
-        target = torch.load('./yawning_dataset/yawnDD_label.pt')
+        dataset = torch.load('./yawning_dataset/yawnDD_image.pt') / 255
+        target = torch.load('./yawning_dataset/yawnDD_label.pt').long() / 255
+
+        dataset = dataset.view(dataset.size(0), dataset.size(3), dataset.size(2), dataset.size(2))
 
         train_dataset = dataset[:int(0.8*dataset.size(0))]
         train_target = target[:int(0.8*dataset.size(0))]
@@ -236,8 +240,10 @@ def main():
         test_dataset = dataset[-int(0.2*dataset.size(0)):]
         test_target = target[-int(0.2*dataset.size(0)):]
 
-        train_data = torch.utils.TensorDataset(train_dataset, train_target)
-        test_data = torch.utils.TensorDataset(test_dataset, test_target)
+        train_data = torch.utils.data.TensorDataset(train_dataset, train_target)
+        test_data = torch.utils.data.TensorDataset(test_dataset, test_target)
+
+        num_classes = 2
     else:
         assert False, 'Do not support dataset : {}'.format(args.dataset)
 
@@ -449,12 +455,13 @@ def train(train_loader, model, criterion, optimizer, epoch, log):
     for i, (input, target) in enumerate(train_loader):
         # measure data loading time
         data_time.update(time.time() - end)
+        # print(target.size())
         if args.use_cuda:
             # the copy will be asynchronous with respect to the host.
             target = target.cuda(non_blocking=True)
             input = input.cuda()
         
-        print(input.size())
+        # print(input.size())
 
         # compute output
         output = model(input)
